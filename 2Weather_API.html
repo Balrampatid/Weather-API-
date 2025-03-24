@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+
+
+        <input id="city-input" type="text" placeholder="Serch city ">
+ <button id="search-button">Search</button>
+ </div>
+ <div>
+
+    <h3 id="city-name">Canada, Ontario - Toronto</h3>
+    <h6 id="city-time">local time</h6>
+    <p id="city-temp">13</p>
+ </div>
+ <script>
+const button=document.getElementById("search-button");
+const input=document.getElementById("city-input");
+const cityName=document.getElementById("city-name");
+const cityTime=document.getElementById("city-time");
+const cityTemp=document.getElementById("city-temp");
+
+
+async function getData(cityName)
+{
+ const promise=await fetch(
+
+    'http://api.weatherapi.com/v1/current.json?key=8c48ab6e74fb418ba4452042240612&q=${cityName}&aqi=yes'
+    );
+    return await promise.json();
+}
+button.addEventListener("click",async () =>{
+// get api on wheter app goto wheter app ang get api https://www.weatherapi.com/      login - mail id and password then
+// copy api key e0da50ac9c0741fdbc871310240512   then click on api explore and put details api key e0da50ac9c0741fdbc871310240512
+//no chage only parameter in select yes show below api link copy it http://api.weatherapi.com/v1/current.json?key=e0da50ac9c0741fdbc871310240512&q=London&aqi=yes
+
+
+//http://api.weatherapi.com/v1/current.json?key=e0da50ac9c0741fdbc871310240512&q=London&aqi=yes
+   
+    const value=input.value;
+    const result=await getData(value);
+    //console.log(result);
+  //  document.write(result);
+
+  cityName.innerText='${result.location.name},${result.location.region}- ${result.location.country}'
+cityTime.innerText=result.location.localtime;
+cityTemp.innerText=result.current.temp_c;
+});
+
+ </script>
+    
+</body>
+</html>
